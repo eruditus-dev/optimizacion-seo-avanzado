@@ -2,7 +2,7 @@
 /*
 Plugin Name: Optimización & SEO Avanzado
 Description: Un plugin para optimizar imágenes, mejorar SEO con meta descriptions, acelerar WordPress, optimizar plugins instalados y mejorar la plantilla activa.
-Version: 1.3
+Version: 1.4
 Author: Tu Nombre
 */
 
