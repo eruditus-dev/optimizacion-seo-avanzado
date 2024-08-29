@@ -21,13 +21,14 @@ jobs:
         sudo mv wp-cli.phar /usr/local/bin/wp
 
     - name: Upload Plugin to WordPress
-      env:
-        SSH_HOST: ${{ secrets.SSH_HOST }}
-        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-        WP_PATH: "/home/u269348967/domains/eruditus.group/public_html/repository/wp-content/plugins"
-      run: |
-        sshpass -p $SSH_PASSWORD rsync -avz --delete ./optimizacion-seo-avanzado -e "ssh -p 65002" $SSH_USERNAME@$SSH_HOST:$WP_PATH/
+  env:
+    SSH_HOST: ${{ secrets.SSH_HOST }}
+    SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+    SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+    WP_PATH: "/home/u269348967/domains/eruditus.group/public_html/repository/wp-content/plugins"
+  run: |
+    SSHPASS=$SSH_PASSWORD sshpass -e rsync -avz --delete -e "ssh -p 65002" ./optimizacion-seo-avanzado $SSH_USERNAME@$SSH_HOST:$WP_PATH/
+
 
     - name: Update Plugin via WP-CLI
       run: |
