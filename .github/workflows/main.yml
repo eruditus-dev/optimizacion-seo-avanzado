@@ -1,0 +1,34 @@
+name: Update WordPress Plugin
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install WP-CLI
+      run: |
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        sudo mv wp-cli.phar /usr/local/bin/wp
+
+    - name: Upload Plugin to WordPress
+      env:
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        WP_PATH: "/home/u269348967/domains/eruditus.group/public_html/repository/wp-content/plugins"
+      run: |
+        sshpass -p $SSH_PASSWORD rsync -avz --delete ./optimizacion-seo-avanzado -e "ssh -p 65002" $SSH_USERNAME@$SSH_HOST:$WP_PATH/
+
+    - name: Update Plugin via WP-CLI
+      run: |
+        sshpass -p $SSH_PASSWORD ssh -p 65002 $SSH_USERNAME@$SSH_HOST "cd $WP_PATH && wp plugin activate optimizacion-seo-avanzado --force"
