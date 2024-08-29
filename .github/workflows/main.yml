@@ -20,13 +20,13 @@ jobs:
         chmod +x wp-cli.phar
         sudo mv wp-cli.phar /usr/local/bin/wp
 
-    - name: Upload Plugin to WordPress
-  env:
-    SSH_HOST: ${{ secrets.SSH_HOST }}
-    SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-    SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-    WP_PATH: "/home/u269348967/domains/eruditus.group/public_html/repository/wp-content/plugins"
-  run: |
+- name: Upload Plugin to WordPress
+      env:
+        SSH_HOST: ${{ secrets.45.151.121.201:65002 }}
+        SSH_USERNAME: ${{ secrets.u269348967 }}
+        SSH_PASSWORD: ${{ secrets.Tom200521650792* }}
+        WP_PATH: "/home/u269348967/domains/eruditus.group/public_html/repository/wp-content/plugins
+run: |
     SSHPASS=$SSH_PASSWORD sshpass -e rsync -avz --delete -e "ssh -p 65002" ./optimizacion-seo-avanzado $SSH_USERNAME@$SSH_HOST:$WP_PATH/
 
 
